@@ -1,0 +1,382 @@
+
+.clientes-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.clientes-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.clientes-encabezado h2 {
+  margin: 0 0 8px;
+  font-size: 23px;
+}
+
+.clientes-encabezado p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.btn-primary {
+  padding: 12px 20px;
+  background: #2563eb;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.clientes-resumen {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.resumen-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resumen-card span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.resumen-card strong {
+  font-size: 30px;
+  color: #0f172a;
+}
+
+.clientes-panel {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.clientes-filtros {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+}
+
+.clientes-filtros input,
+.clientes-filtros select,
+.formulario-grid input,
+.formulario-grid select {
+  padding: 11px 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  color: #1e293b;
+  font: inherit;
+}
+
+.clientes-filtros input {
+  flex: 1;
+  min-width: 0;
+}
+
+.clientes-filtros select {
+  min-width: 190px;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+}
+
+.tabla-clientes {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tabla-clientes th {
+  background: #f8fafc;
+  color: #64748b;
+  padding: 15px 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tabla-clientes td {
+  padding: 17px 20px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.tabla-clientes td strong,
+.tabla-clientes td small {
+  display: block;
+}
+
+.tabla-clientes td small {
+  margin-top: 5px;
+  color: #64748b;
+}
+
+.estado-cliente {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.estado-cliente.prospecto {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.estado-cliente.activo {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.estado-cliente.inactivo {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.acciones-cliente {
+  display: flex;
+  gap: 8px;
+}
+
+.acciones-cliente button {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.acciones-cliente .btn-eliminar {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.clientes-vacio {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.clientes-vacio p {
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.clientes-vacio span,
+.clientes-pie {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.clientes-pie {
+  padding: 16px 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Formulario modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.65);
+  padding: 20px;
+}
+
+.modal-cliente {
+  background: white;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.cerrar-modal {
+  background: none;
+  border: 0;
+  font-size: 28px;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.formulario-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.formulario-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.formulario-error {
+  padding: 12px;
+  background: #fef2f2;
+  color: #b91c1c;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.formulario-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: #334155;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .clientes-resumen {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .clientes-encabezado,
+  .clientes-filtros {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .clientes-resumen,
+  .formulario-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-cliente {
+    padding: 20px;
+  }
+
+  .formulario-acciones {
+    flex-direction: column-reverse;
+  }
+}
+
+
+.confirm-dialog {
+  width: min(420px, calc(100% - 32px));
+  max-width: none;
+  border: none;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #1e293b;
+  padding: 28px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.65);
+}
+
+.confirm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.confirm-icon {
+  width: 54px;
+  height: 54px;
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.confirm-close {
+  background: transparent;
+  border: 0;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.confirm-dialog h2 {
+  font-size: 21px;
+  margin: 22px 0 12px;
+}
+
+.confirm-dialog p {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+@media (max-width: 480px) {
+  .confirm-actions {
+    flex-direction: column-reverse;
+  }
+}

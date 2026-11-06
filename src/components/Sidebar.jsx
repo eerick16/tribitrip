@@ -1,43 +1,89 @@
 
+import { NavLink } from "react-router";
+import {
+  LayoutDashboard,
+  Users,
+  Plane,
+  TrendingUp,
+  FileText,
+  CalendarCheck,
+  ClipboardList,
+} from "lucide-react";
+
 const secciones = [
-  { id: "dashboard", nombre: "Dashboard" },
-  { id: "clientes", nombre: "Clientes y prospectos" },
-  { id: "solicitudes", nombre: "Solicitudes de viaje" },
-  { id: "oportunidades", nombre: "Oportunidades" },
-  { id: "cotizaciones", nombre: "Cotizaciones" },
-  { id: "reservas", nombre: "Reservas" },
-  { id: "actividades", nombre: "Actividades" },
+  {
+    ruta: "/dashboard",
+    nombre: "Dashboard",
+    icono: LayoutDashboard,
+  },
+  {
+    ruta: "/clientes",
+    nombre: "Clientes y prospectos",
+    icono: Users,
+  },
+  {
+    ruta: "/solicitudes",
+    nombre: "Solicitudes de viaje",
+    icono: Plane,
+  },
+  {
+    ruta: "/oportunidades",
+    nombre: "Oportunidades",
+    icono: TrendingUp,
+  },
+  {
+    ruta: "/cotizaciones",
+    nombre: "Cotizaciones",
+    icono: FileText,
+  },
+  {
+    ruta: "/reservas",
+    nombre: "Reservas",
+    icono: CalendarCheck,
+  },
+  {
+    ruta: "/actividades",
+    nombre: "Actividades",
+    icono: ClipboardList,
+  },
 ];
 
-function Sidebar({ paginaActual, cambiarPagina }) {
+function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
         <span className="logo-icono">T</span>
+
         <div>
           <strong>TribiTrip</strong>
           <small>Gestión CRM</small>
         </div>
       </div>
 
-      <p className="sidebar-titulo">MENÚ PRINCIPAL</p>
+      <p className="sidebar-titulo">
+        MENÚ PRINCIPAL
+      </p>
 
-      <nav className="sidebar-nav" aria-label="Menú principal">
-        {secciones.map((seccion) => (
-          <button
-            key={seccion.id}
-            type="button"
-            className={
-              paginaActual === seccion.id ? "activo" : ""
-            }
-            aria-current={
-              paginaActual === seccion.id ? "page" : undefined
-            }
-            onClick={() => cambiarPagina(seccion.id)}
-          >
-            {seccion.nombre}
-          </button>
-        ))}
+      <nav
+        className="sidebar-nav"
+        aria-label="Menú principal"
+      >
+        {secciones.map((seccion) => {
+          const Icono = seccion.icono;
+
+          return (
+            <NavLink
+              key={seccion.ruta}
+              to={seccion.ruta}
+              className={({ isActive }) =>
+                isActive ? "activo" : ""
+              }
+            >
+              <Icono size={19} aria-hidden="true" />
+              <span>{seccion.nombre}</span>
+            </NavLink>
+          );
+        })}
       </nav>
 
       <div className="sidebar-footer">

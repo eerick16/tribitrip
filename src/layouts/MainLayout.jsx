@@ -1,18 +1,24 @@
 
+import { Outlet, useLocation } from "react-router";
 import Sidebar from "../components/Sidebar";
 
-function MainLayout({
-  children,
-  paginaActual,
-  cambiarPagina,
-  titulo,
-}) {
+const titulos = {
+  "/dashboard": "Dashboard",
+  "/clientes": "Clientes y prospectos",
+  "/solicitudes": "Solicitudes de viaje",
+  "/oportunidades": "Oportunidades comerciales",
+  "/cotizaciones": "Cotizaciones",
+  "/reservas": "Reservas",
+  "/actividades": "Seguimiento de actividades",
+};
+
+function MainLayout() {
+  const location = useLocation();
+  const titulo = titulos[location.pathname] || "TribiTrip";
+
   return (
     <div className="app-layout">
-      <Sidebar
-        paginaActual={paginaActual}
-        cambiarPagina={cambiarPagina}
-      />
+      <Sidebar />
 
       <div className="main-container">
         <header className="main-header">
@@ -33,7 +39,7 @@ function MainLayout({
         </header>
 
         <main className="main-content">
-          {children}
+          <Outlet />
         </main>
       </div>
     </div>
