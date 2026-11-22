@@ -1,0 +1,48 @@
+.solicitud-notas {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
+}
+
+.solicitud-notas p {
+  margin: 6px 0 0;
+  color: #475569;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.ficha-datos.solicitud-tipos {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.solicitud-tipos > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.solicitud-tipos dd,
+.solicitud-viajeros-vacio,
+.solicitud-viajeros > .tabla-contenedor {
+  margin: 0;
+}
+
+.solicitud-viajeros-vacio {
+  color: #475569;
+}
+
+.solicitud-form fieldset {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #dce6f2;
+  border-radius: 10px;
+  background: #f7faff;
+}
+
+.solicitud-form legend {
+  padding-inline: 5px;
+  color: #1e3a5f;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
