@@ -1,0 +1,18 @@
+{
+  "name": "tribitrip-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env --watch index.js",
+    "start": "node --env-file=.env index.js",
+    "seed:admin": "node --env-file=.env seed.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^9.0.0",
+    "cookie-parser": "^1.4.7",
+    "express-rate-limit": "^8.0.0",
+    "helmet": "^8.0.0"
+  }
+}
