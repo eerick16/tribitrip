@@ -1,4 +1,4 @@
-name: CI TribiTrip
+name: CI/CD TribiTrip
 
 on:
   pull_request:
@@ -46,3 +46,29 @@ jobs:
           name: tribitrip-dist-${{ github.sha }}
           path: dist/
           if-no-files-found: error
+
+  deploy-testing:
+    name: Despliegue en Render Testing
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Activar despliegue de Testing
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_TESTING }}
+        run: |
+          curl --fail --silent --show-error --request POST "${DEPLOY_HOOK}&ref=${GITHUB_SHA}"
+          echo "Solicitud de despliegue en Testing enviada correctamente."
+
+  deploy-staging:
+    name: Despliegue en Render Staging
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Activar despliegue de Staging
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_STAGING }}
+        run: |
+          curl --fail --silent --show-error --request POST "${DEPLOY_HOOK}&ref=${GITHUB_SHA}"
+          echo "Solicitud de despliegue en Staging enviada correctamente."
