@@ -1,29 +1,74 @@
-name: CI React Vite
+name: CI/CD TribiTrip
 
 on:
-  push:
-    branches: ["main"]
   pull_request:
-    branches: ["main"]
+    branches: [dev, main]
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  build:
+  verify:
+    name: Lint, pruebas y compilación
     runs-on: ubuntu-latest
-
     steps:
-      - name: Descargar código
-        uses: actions/checkout@v4
-
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
+      - name: Obtener código
+        uses: actions/checkout@v7
         with:
-          node-version: "20"
+          persist-credentials: false
 
-      - name: Instalar dependencias
-        run: npm install
+      - name: Configurar Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
 
-      - name: Ejecutar linter
+      - name: Instalar dependencias del frontend
+        run: npm ci
+
+      - name: Instalar dependencias del backend
+        run: npm --prefix server ci
+
+      - name: Ejecutar ESLint
         run: npm run lint
 
-      - name: Compilar proyecto (Build)
+      - name: Compilar frontend
         run: npm run build
+
+      - name: Ejecutar pruebas del backend y del frontend servido
+        run: npm --prefix server test
+
+      - name: Publicar frontend compilado
+        uses: actions/upload-artifact@v7
+        with:
+          name: tribitrip-dist-${{ github.sha }}
+          path: dist/
+          if-no-files-found: error
+
+  deploy-testing:
+    name: Despliegue en Render Testing
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Activar despliegue de Testing
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_TESTING }}
+        run: |
+          curl --fail --silent --show-error --request POST "${DEPLOY_HOOK}&ref=${GITHUB_SHA}"
+          echo "Solicitud de despliegue en Testing enviada correctamente."
+
+  deploy-staging:
+    name: Despliegue en Render Staging
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Activar despliegue de Staging
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_STAGING }}
+        run: |
+          curl --fail --silent --show-error --request POST "${DEPLOY_HOOK}&ref=${GITHUB_SHA}"
+          echo "Solicitud de despliegue en Staging enviada correctamente."

@@ -1,0 +1,73 @@
+.cotizacion-folio {
+  font-variant-numeric: tabular-nums;
+}
+
+.cotizacion-aviso {
+  margin: 0;
+  color: #166534;
+}
+
+.cotizacion-conceptos > .tabla-contenedor {
+  margin-top: 0;
+}
+
+.cotizacion-conceptos h2,
+.cotizacion-versiones h2 {
+  margin: 0;
+}
+
+.cotizacion-conceptos .tabla-clientes {
+  min-width: 520px;
+}
+
+.cotizacion-conceptos :is(th, td):not(:first-child) {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.ficha-datos > .cotizacion-total {
+  background: #e0edff;
+  border-color: #bfd6fa;
+}
+
+.cotizacion-total dd {
+  font-size: 1.15rem;
+}
+
+.cotizacion-notas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.cotizacion-notas p {
+  margin: 6px 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: #475569;
+}
+
+.cotizacion-versiones ul {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cotizacion-versiones li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid #dce6f2;
+  border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+  .cotizacion-notas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
