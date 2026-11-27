@@ -414,9 +414,10 @@ test("API aísla la ficha, protege ediciones y combina filtros con paginación",
 });
 
 test("dashboard y reportes usan agregaciones protegidas y la misma definición de ventas", async (t) => {
+  const asesor = oid();
   mockSessions(t, {
     admin: { _id: oid(), rol: "Administrador", activo: true },
-    asesor: { _id: oid(), rol: "Asesor", activo: true },
+    asesor: { _id: asesor, rol: "Asesor", activo: true },
   });
   const start = new Date("2032-02-01T06:00:00.000Z");
   const before = new Date(start - 1);
@@ -424,12 +425,14 @@ test("dashboard y reportes usan agregaciones protegidas y la misma definición d
   const records = [
     {
       estado: "Confirmada",
+      asesor,
       totalCentavos: 10000,
       pagadoCentavos: 555,
       createdAt: start,
     },
     {
       estado: "Cancelada",
+      asesor,
       totalCentavos: 99999,
       pagadoCentavos: 555,
       createdAt: start,
@@ -460,10 +463,14 @@ test("dashboard y reportes usan agregaciones protegidas y la misma definición d
     return [...groups].map(([_id, cantidad]) => ({ _id, cantidad }));
   };
   t.mock.method(Cliente, "aggregate", (pipeline) => {
-    if (pipeline.length === 1) {
-      assert.equal(pipeline[0].$group._id, "$estado");
+    if (pipeline.length <= 2) {
+      assert.equal(pipeline.at(-1).$group._id, "$estado");
       return groupRows(
-        [{ estado: "Activo" }, { estado: "Inactivo" }, { estado: "Prospecto" }],
+        [
+          { estado: "Activo", asesor },
+          { estado: "Inactivo" },
+          { estado: "Prospecto" },
+        ].filter((item) => matches(item, pipeline[0].$match ?? {})),
         "estado",
       );
     }
@@ -493,12 +500,16 @@ test("dashboard y reportes usan agregaciones protegidas y la misma definición d
       },
     };
   });
-  t.mock.method(Oportunidad, "aggregate", async ([stage]) => {
-    assert.equal(stage.$group._id, "$etapa");
+  t.mock.method(Oportunidad, "aggregate", async (pipeline) => {
+    assert.equal(pipeline.at(-1).$group._id, "$etapa");
     return groupRows(
-      ["Ganada", "Ganada", "Perdida", "Cotización", "Negociación"].map(
-        (etapa) => ({ etapa }),
-      ),
+      [
+        { etapa: "Ganada", asesor },
+        { etapa: "Ganada" },
+        { etapa: "Perdida" },
+        { etapa: "Cotización", asesor },
+        { etapa: "Negociación" },
+      ].filter((item) => matches(item, pipeline[0].$match ?? {})),
       "etapa",
     );
   });
@@ -519,7 +530,18 @@ test("dashboard y reportes usan agregaciones protegidas y la misma definición d
   });
   const call = await http(t);
   assert.equal((await call("/dashboard")).status, 401);
-  assert.equal((await call("/dashboard", "asesor")).status, 403);
+  const asesorDashboard = await call("/dashboard?asesor=" + oid(), "asesor");
+  assert.equal(asesorDashboard.status, 200);
+  assert.deepEqual(asesorDashboard.body, {
+    clientes: 1,
+    prospectos: 0,
+    abiertas: 1,
+    ganadas: 1,
+    perdidas: 0,
+    conversion: 1,
+    ventasCentavos: 10000,
+    reservas: 1,
+  });
   assert.equal((await call("/reportes/comerciales", "asesor")).status, 403);
   const dashboard = (await call("/dashboard", "admin")).body;
   assert.deepEqual(dashboard, {
