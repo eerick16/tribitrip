@@ -177,6 +177,12 @@
   line-height: 1.6;
 }
 
+.dashboard-accesos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .indicadores {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

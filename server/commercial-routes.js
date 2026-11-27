@@ -146,11 +146,13 @@ export function registerCommercialRoutes(
     });
   });
 
-  app.get("/api/dashboard", admin, async (req, res) => {
+  app.get("/api/dashboard", async (req, res) => {
+    const access = scope(req);
+    const ownershipStages = access.asesor ? [{ $match: access }] : [];
     const [clients, opportunities, [sales]] = await Promise.all([
-      Cliente.aggregate([countGroup("estado")]),
-      Oportunidad.aggregate([countGroup("etapa")]),
-      Reserva.aggregate([{ $match: salesMatch }, sumGroup(null)]),
+      Cliente.aggregate([...ownershipStages, countGroup("estado")]),
+      Oportunidad.aggregate([...ownershipStages, countGroup("etapa")]),
+      Reserva.aggregate([{ $match: { ...access, ...salesMatch } }, sumGroup(null)]),
     ]);
     const byClient = countMap(clients);
     const byStage = countMap(opportunities);
