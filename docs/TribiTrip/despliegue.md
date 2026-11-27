@@ -56,3 +56,18 @@ graph TD
 :::
 
 Los jobs dependen de `verify` y envían HTTP POST con `curl` y el SHA. Los secretos se identifican como `RENDER_DEPLOY_HOOK_TESTING` y `RENDER_DEPLOY_HOOK_STAGING`. La finalización correcta del job acredita que Render aceptó la solicitud. Render Events muestra el resultado efectivo del despliegue.
+
+## Evidencias de validación
+
+### Evidencia 3. Despliegue efectivo
+
+Render Events muestra Live para `373dab1` el 26/11/2026.
+
+![Despliegue efectivo](../.attachments/despliegue/render-live.png)
+
+### Evidencia 4. Acceso a Testing
+
+La pantalla de inicio de sesión carga por HTTPS. No acredita por sí sola autenticación exitosa.
+
+![Acceso a Testing](../.attachments/despliegue/login.png)
+

@@ -26,6 +26,21 @@ graph LR
   A --> D["Push elegible habilita CD"]
 :::
 
-En la pestaña **Actions**, abrir el workflow, elegir la ejecución y revisar el SHA, el estado de los jobs, los registros por paso y el artefacto. En un PR, consultar las comprobaciones asociadas. Los jobs de despliegue esperan a que la verificación termine correctamente. Se reportó una ejecución con 21 pruebas aprobadas, lint satisfactorio y compilación correcta. Queda pendiente adjuntar el registro. [Evidencias](evidencias.md)
+En la pestaña **Actions**, abrir el workflow, elegir la ejecución y revisar el SHA, el estado de los jobs, los registros por paso y el artefacto. En un PR, consultar las comprobaciones asociadas. Los jobs de despliegue esperan a que la verificación termine correctamente. Se reportó una ejecución con 21 pruebas aprobadas, lint satisfactorio y compilación correcta. Queda pendiente adjuntar el registro detallado de los pasos; las capturas de resumen se incluyen abajo. [Evidencias](evidencias.md)
 
 Registrar el vínculo de la ejecución junto con el SHA y el artefacto correspondiente. [Registro de validaciones](evidencias.md)
+
+## Evidencias de validación
+
+### Evidencia 1. CI en PR #12
+
+Ejecución #7 exitosa en 23 s; verificación de 20 s, artefacto de 107 KB y despliegues omitidos.
+
+![CI en PR #12](../.attachments/integracion-continua/pr-12.png)
+
+### Evidencia 2. CI/CD en dev
+
+Ejecución #8 exitosa en 21 s, SHA `373dab1`, verificación de 15 s y solicitud de despliegue Testing de 2 s; Staging omitido. Artefacto de 107 KB.
+
+![CI/CD en dev](../.attachments/integracion-continua/push-dev.png)
+
