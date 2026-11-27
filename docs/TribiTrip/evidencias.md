@@ -54,22 +54,16 @@ HTTP 200 y encabezado X-Request-ID coincidente con el registro de GET `/api/heal
 
 ![Correlación de solicitud](../.attachments/monitoreo/correlacion.png)
 
-## Evidencias pendientes
- 
-Para cada evidencia, registrar el ambiente, fecha, SHA o versión cuando corresponda, referencia a la ejecución o captura y resultado observado.
+## Evidencias de QA
 
-| Ámbito | Evidencia o confirmación pendiente |
-|---|---|
-| CI | Adjuntar registros detallados por paso de la ejecución, incluyendo las 21 pruebas aprobadas. Las ejecuciones #7 y #8 y sus artefactos se muestran arriba. |
-| Testing | Adjuntar configuración final redactada, confirmar base efectiva `test`, cuerpo JSON de health y acceso autenticado. Render Events, HTTP 200 y pantalla de login ya documentados. |
-| Staging | URL y base efectiva `tribitrip`, ejecución efectiva del CD, liberación, Render Events, health, acceso y monitor. |
-| UptimeRobot | Consolidar ventana de observación y confirmar recepción de alertas; muestra inicial y configuración adjuntas. |
-| Render | Capturas de Metrics y correlación adjuntas; consolidar métricas del periodo. |
-| QA | Ejecuciones automatizadas, estático, regresión, auditoría, script y resultados de rendimiento, aceptación manual y PDF. Integración a cargo del responsable. |
-| Seguridad y operación | Confirmar índice y TTL en base de pruebas, política real de respaldos y restauración, protecciones de ramas, matriz de navegadores y tratamiento de datos históricos de contactos, si corresponde. |
-| Publicación de la Wiki | Confirmar rama y repositorio de publicación, incorporación de `docs/`, vínculo a Wiki y evidencia de publicación. |
-| Manual | Capturas reales de cada procedimiento con datos de demostración. |
+Ejecuciones del 26/11/2026 en Ciudad de México. Los registros UTC de rendimiento indican 27/11/2026.
+
+- [Suite local de 21 pruebas](pruebas/unitarias.md#evidencia) y [alcance de integración](pruebas/integracion.md).
+- [Análisis estático y compilación](pruebas/analisis-estatico.md#evidencias).
+- [Auditorías de dependencias](pruebas/vulnerabilidades.md#evidencias).
+- [Health y escenarios de Testing](pruebas/rendimiento.md#evidencias).
+
 
 ## Validación de la Wiki de código
 
-En el repositorio se comprueban los destinos relativos, las páginas padre, las carpetas homónimas y las entradas de `.order`, junto con la sintaxis de los bloques Mermaid. Los recursos y capturas se incorporan a `.attachments/` dentro de la raíz de publicación, con enlaces relativos y sin datos sensibles. Tras publicar `docs/`, comprobar portada, orden y jerarquía, destinos de enlaces entre niveles, renderizado Mermaid, capturas y página reservada para QA. [Publicación de Wiki de código](https://learn.microsoft.com/en-us/azure/devops/project/wiki/publish-repo-to-wiki?view=azure-devops) · [Sintaxis Markdown y Mermaid](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops)
+En el repositorio se comprueban los destinos relativos, las páginas padre, las carpetas homónimas y las entradas de `.order`, junto con la sintaxis de los bloques Mermaid. Los recursos y capturas se incorporan a `.attachments/` dentro de la raíz de publicación, con enlaces relativos y sin datos sensibles. Tras publicar `docs/`, comprobar portada, orden y jerarquía, destinos de enlaces entre niveles, renderizado Mermaid, capturas y páginas de QA. [Publicación de Wiki de código](https://learn.microsoft.com/en-us/azure/devops/project/wiki/publish-repo-to-wiki?view=azure-devops) · [Sintaxis Markdown y Mermaid](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops)
